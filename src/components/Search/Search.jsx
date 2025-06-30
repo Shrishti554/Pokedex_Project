@@ -1,8 +1,10 @@
+import './Search.css';
+
 function Search () {
     return (
-        <>
-        <input type="text" placeholder="pokemon name...."/>
-        </>
+        <div className='search-wrapper'>
+        <input  id= "pokemon-name-search" type="text" placeholder="pokemon name...."/>
+        </div>
     )
 
 }
