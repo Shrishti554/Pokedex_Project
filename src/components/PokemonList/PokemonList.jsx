@@ -22,17 +22,17 @@ function PokemonList()  {
     });
    
    async function downloadPokemons(){
-    setPokemonListState({ ...pokemonListState , isLoading: true});
+    setPokemonListState((state) => ({ ...state , isLoading: true}));
       const response = await axios.get(setPokemonListState.pokedexUrl);
 
       const pokemonResults = response.data.results;
 
-      console.log( response.data)
-      setPokemonListState({
-        ...pokemonListState ,
+      console.log( response.data , response.data.next)
+      setPokemonListState((state) =>( {
+        ...state ,
         nextUrl:response.data.next , 
         prevUrl:response.data.previous
-      });
+      }));
      
 
       const pokemonResultPromise = pokemonResults.map((pokemon) =>axios.get(pokemon.url));
@@ -49,12 +49,11 @@ function PokemonList()  {
             image:(pokemon.sprites.other) ? pokemon.sprites.other.dream_world.front_default : pokemon.sprites.front_shiny, 
             types:pokemon.types}
       }));
-      console.log(pokeListResult)
-      setPokemonListState({
-         ...pokemonListState,
+      setPokemonListState((state) =>({
+         ...state,
          pokemonList:pokeListResult ,
           isLoading:false
-        });
+        }));
 
     }
     
